@@ -1,9 +1,38 @@
 import { Eye, EyeOff } from "lucide-react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Bg from "@/assets/Background Saldo.png"
+import { useAppDispatch, useAppSelector } from "@/store/hooks"
+import { selectBalance, selectBalanceLoading } from "@/store/balance/balance.selector"
+import { fetchBalanceThunk } from "@/store/balance/balance.slice"
+import { Skeleton } from "./ui/skeleton"
 
 const Balance = () => {
+    const dispatch = useAppDispatch()
+    const amount = useAppSelector(selectBalance)
+    const isLoading = useAppSelector(selectBalanceLoading)
     const [showBalance, setShowBalance] = useState(false)
+
+    useEffect(() => {
+        if (amount === null) dispatch(fetchBalanceThunk())
+    }, [])
+
+    const formatted = amount?.toLocaleString("id-ID")
+
+    function renderBalance(): React.ReactNode {
+        if (isLoading) {
+            return <Skeleton className="w-36 h-8 rounded opacity-50" />
+        }
+
+        if (amount !== null && showBalance) {
+            return <span>{formatted}</span>
+        }
+
+        if (amount !== null && !showBalance) {
+            return <span className="tracking-wider">• • • • • •</span>
+        }
+
+        return <span>0</span>
+    }
 
     return (
         <section
@@ -17,16 +46,11 @@ const Balance = () => {
         >
             <p className="font-medium">Saldo Anda</p>
 
-            <h1 className="font-semibold text-4xl">
+            <div className="flex items-center gap-3 font-semibold text-4xl">
                 Rp {" "}
-                <span>
-                    {
-                        showBalance ?
-                            "5.000.000" :
-                            <span className="tracking-wider">• • • • • •</span>
-                    }
-                </span>
-            </h1>
+
+                {renderBalance()}
+            </div>
 
             <button
                 onClick={() => setShowBalance(prev => !prev)}

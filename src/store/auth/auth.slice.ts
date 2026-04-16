@@ -3,6 +3,8 @@ import { login as loginService } from "@/services/auth.service"
 import type { AuthState } from "@/types/login.type"
 import type { LoginPayload } from "@/types/login.type"
 import axios from "axios"
+import { clearProfile } from "../profile/profile.slice"
+import { clearBalance } from "../balance/balance.slice"
 
 
 export const loginThunk = createAsyncThunk(
@@ -23,14 +25,17 @@ export const loginThunk = createAsyncThunk(
     }
 )
 
-export const logoutThunk = createAsyncThunk("auth/logout", async () => {
-    localStorage.removeItem("token")
-})
+export const logoutThunk = createAsyncThunk(
+    "auth/logout",
+    async (_, { dispatch }) => {
+        localStorage.removeItem("token")
+        dispatch(clearProfile())
+        dispatch(clearBalance())
+    })
 
 
 const initialState: AuthState = {
     token: localStorage.getItem("token"),
-    user: null,
     isAuthenticated: !!localStorage.getItem("token"),
     isLoading: false,
     error: null,
@@ -42,7 +47,6 @@ const authSlice = createSlice({
     reducers: {
         clearAuth(state) {
             state.token = null
-            state.user = null
             state.isAuthenticated = false
             state.error = null
             localStorage.removeItem("token")
@@ -70,7 +74,6 @@ const authSlice = createSlice({
         builder
             .addCase(logoutThunk.fulfilled, (state) => {
                 state.token = null
-                state.user = null
                 state.isAuthenticated = false
             })
     },
