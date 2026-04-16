@@ -7,6 +7,7 @@ import Dashboard from "@/pages/dashboard"
 import { GuestRoute } from "@/components/guest-route"
 import AppLayout from "@/layouts/app"
 import Topup from "@/pages/topup"
+import ServiceDetail from "./pages/service-detail"
 
 const AppRoutes = () => {
     return (
@@ -15,6 +16,7 @@ const AppRoutes = () => {
                 <Route element={<AppLayout />}>
                     <Route path="/dashboard" element={<Dashboard />} />
                     <Route path="/topup" element={<Topup />} />
+                    <Route path="/services/:code" element={<ServiceDetail />} />
                     {/* NOTE: protected routes go here */}
                 </Route>
             </Route>

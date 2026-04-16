@@ -1,8 +1,23 @@
-import { useServices } from "@/hooks/use-services"
 import { Skeleton } from "@/components/ui/skeleton"
+import { useAppDispatch, useAppSelector } from "@/store/hooks"
+import { selectServices, selectServicesLoading } from "@/store/services/service.selector"
+import { useEffect } from "react"
+import { fetchServicesThunk } from "@/store/services/service.slice"
+import { toast } from "sonner"
+import { Link } from "react-router"
 
 const Services = () => {
-    const { services, isLoading } = useServices()
+    const dispatch = useAppDispatch()
+    const services = useAppSelector(selectServices)
+    const isLoading = useAppSelector(selectServicesLoading)
+
+    useEffect(() => {
+        if (services.length === 0) {
+            dispatch(fetchServicesThunk())
+                .unwrap()
+                .catch(() => toast.error("Gagal memuat layanan"))
+        }
+    }, [])
 
     if (isLoading) return (
         <div className="grid grid-cols-3 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-12 gap-5">
@@ -18,7 +33,8 @@ const Services = () => {
     return (
         <div className="grid grid-cols-3 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-12 gap-5">
             {services.map((service) => (
-                <button
+                <Link
+                    to={`/services/${service.service_code}`}
                     key={service.service_code}
                     className="flex flex-col items-center gap-2 group"
                 >
@@ -30,7 +46,7 @@ const Services = () => {
                     <span className="text-xs text-center leading-tight">
                         {service.service_name}
                     </span>
-                </button>
+                </Link>
             ))}
         </div>
     )
