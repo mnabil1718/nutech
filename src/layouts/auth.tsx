@@ -5,7 +5,9 @@ const AuthLayout = () => {
     return (
         <div className="flex w-full h-screen">
             <div className="basis-full md:basis-1/2 flex justify-center items-center">
-                <Outlet />
+                <div className="max-w-md">
+                    <Outlet />
+                </div>
             </div>
 
             <div className="relative hidden md:flex md:basis-1/2">

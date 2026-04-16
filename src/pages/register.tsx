@@ -1,5 +1,4 @@
 import { useForm } from "react-hook-form"
-import { Link } from "react-router"
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RegisterSchema, type Register as RegisterType } from "@/schemas/register.schema"
 import { register } from "@/services/auth.service";
@@ -40,6 +39,7 @@ const Register = () => {
                 password: values.password,
             });
 
+            toast("Registrasi berhasil")
             form.reset();
             navigate("/login");
 
@@ -51,7 +51,7 @@ const Register = () => {
             }
 
             toast.error(msg)
-            setLoading(false)
+
         } finally {
             setLoading(false)
         }
@@ -63,7 +63,7 @@ const Register = () => {
                 <h1 className="text-2xl font-semibold">SIMS PPOB</h1>
             </div>
 
-            <h2 className="text-center text-3xl font-semibold mb-8">Masuk atau buat akun untuk memulai</h2>
+            <h2 className="text-center text-3xl font-semibold mb-8">Lengkapi data untuk membuat akun</h2>
 
             <form
                 id="register-form"

@@ -10,3 +10,15 @@ api.interceptors.request.use((config) => {
     if (token) config.headers.Authorization = `Bearer ${token}`
     return config
 })
+
+// redirect middleware if unauthenticated
+api.interceptors.response.use(
+       (res) => res,
+       (error) => {
+           if (error.response?.status === 401) {
+               localStorage.removeItem('token')
+               window.location.href = '/login'
+           }
+           return Promise.reject(error)
+       }
+)
