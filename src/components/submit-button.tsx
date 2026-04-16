@@ -7,12 +7,14 @@ interface SubmitButtonProps {
     label?: string;
     loadingLabel?: string;
     className?: string;
+    disabled?: boolean;
 }
 
 export function SubmitButton({
     isLoading,
     label = "Registrasi",
     loadingLabel = "Memproses...",
+    disabled,
     className
 }: SubmitButtonProps) {
     return (
@@ -21,7 +23,7 @@ export function SubmitButton({
             variant="default"
             className={cn("p-3! h-auto mt-7", className)}
             type="submit"
-            disabled={isLoading}
+            disabled={disabled ?? isLoading}
         >
             {isLoading ? (
                 <>

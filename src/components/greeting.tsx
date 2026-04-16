@@ -33,12 +33,11 @@ const Greeting = () => {
 
 
             <h2 className="text-lg text-muted-foreground ">Selamat Datang,</h2>
-            {/* <h1 className="text-3xl font-medium">Muhammad Nabil</h1> */}
             {isLoading || !profile
                 ? <Skeleton className="h-9 max-w-56 w-full" />
-                : <h2 className="text-3xl font-medium">
+                : <h1 className="text-3xl font-medium">
                     {profile.first_name} {profile.last_name}
-                </h2>
+                </h1>
             }
         </div>
     )

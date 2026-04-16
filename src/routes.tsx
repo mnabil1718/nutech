@@ -4,8 +4,9 @@ import Register from "@/pages/register"
 import Login from "@/pages/login"
 import { ProtectedRoute } from "@/components/protected-route"
 import Dashboard from "@/pages/dashboard"
-import { GuestRoute } from "./components/guest-route"
-import AppLayout from "./layouts/app"
+import { GuestRoute } from "@/components/guest-route"
+import AppLayout from "@/layouts/app"
+import Topup from "@/pages/topup"
 
 const AppRoutes = () => {
     return (
@@ -13,6 +14,7 @@ const AppRoutes = () => {
             <Route element={<ProtectedRoute />}>
                 <Route element={<AppLayout />}>
                     <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/topup" element={<Topup />} />
                     {/* NOTE: protected routes go here */}
                 </Route>
             </Route>
