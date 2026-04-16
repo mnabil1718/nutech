@@ -10,12 +10,14 @@ interface TextInputProps<T extends FieldValues> {
     icon?: ReactNode
     type?: string
     id?: string
+    readOnly?: boolean,
 }
 
 const TextInput = <T extends FieldValues>({
     name,
     control,
     placeholder,
+    readOnly = false,
     icon,
     type = 'text',
     id,
@@ -29,6 +31,7 @@ const TextInput = <T extends FieldValues>({
                     <InputGroup className="p-2 h-auto">
                         <InputGroupInput
                             {...field}
+                            readOnly={readOnly}
                             id={id ?? name}
                             type={type}
                             placeholder={placeholder}

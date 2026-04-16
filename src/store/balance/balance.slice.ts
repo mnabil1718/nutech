@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import { getBalance } from "@/services/balance.service"
 import { topup } from "@/services/topup.service"
 import axios from "axios"
+import { createTransaction } from "@/services/transaction.service"
 
 type BalanceState = {
     amount: number | null
@@ -50,6 +51,23 @@ export const topupThunk = createAsyncThunk(
     }
 )
 
+export const transactionThunk = createAsyncThunk(
+    "balance/transaction",
+    async (service_code: string, { rejectWithValue }) => {
+        try {
+            const res = await createTransaction({ service_code })
+            return res.data!
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                return rejectWithValue(
+                    error.response?.data?.message ?? "Transaksi gagal"
+                )
+            }
+            return rejectWithValue("Transaksi gagal")
+        }
+    }
+)
+
 const balanceSlice = createSlice({
     name: "balance",
     initialState,
@@ -83,6 +101,18 @@ const balanceSlice = createSlice({
                 state.amount = action.payload
             })
             .addCase(topupThunk.rejected, (state, action) => {
+                state.isLoading = false
+                state.error = action.payload as string
+            })
+            .addCase(transactionThunk.pending, (state) => {
+                state.isLoading = true
+                state.error = null
+            })
+            .addCase(transactionThunk.fulfilled, (state) => {
+                state.isLoading = false
+                // refetch balance separately, /transaction does not return new balance
+            })
+            .addCase(transactionThunk.rejected, (state, action) => {
                 state.isLoading = false
                 state.error = action.payload as string
             })
