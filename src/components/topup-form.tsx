@@ -56,7 +56,7 @@ const TopupForm = () => {
 
     function onBackToHome() {
         setDialogState("idle")
-        navigate("/dashboard")
+        navigate("/")
     }
 
     const formatted = `Rp${submittedAmount.toLocaleString("id-ID")}`

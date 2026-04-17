@@ -5,7 +5,7 @@ const Navbar = () => {
     return (
         <nav className="sticky top-0 z-20 w-full flex justify-center border-b border-b-foreground/10 backdrop-blur-lg bg-background/50">
             <div className="w-full max-w-7xl flex justify-between items-center p-5">
-                <NavLink to={"/dashboard"} className="flex items-center gap-2">
+                <NavLink to={"/"} className="flex items-center gap-2">
                     <Brand />
                     <span className="font-semibold">SIMS PPOB</span>
                 </NavLink>

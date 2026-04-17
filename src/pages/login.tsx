@@ -38,7 +38,7 @@ const Login = () => {
         if (loginThunk.fulfilled.match(res)) {
             toast.success("Berhasil masuk")
             form.reset();
-            navigate("/dashboard")
+            navigate("/")
         }
     }
 

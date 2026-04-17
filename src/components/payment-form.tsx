@@ -75,7 +75,7 @@ const PaymentForm = ({ code }: { code: string | undefined }) => {
 
     function onBackToHome() {
         setDialogState("idle")
-        navigate("/dashboard")
+        navigate("/")
     }
 
     const formatted = `Rp${submittedAmount.toLocaleString("id-ID")}`

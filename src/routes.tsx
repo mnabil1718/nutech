@@ -16,7 +16,7 @@ const AppRoutes = () => {
         <Routes>
             <Route element={<ProtectedRoute />}>
                 <Route element={<AppLayout />}>
-                    <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/" element={<Dashboard />} />
                     <Route path="/topup" element={<Topup />} />
                     <Route path="/services/:code" element={<ServiceDetail />} />
                     <Route path="/transaction" element={<Transaction />} />

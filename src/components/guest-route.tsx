@@ -4,5 +4,5 @@ import { Navigate, Outlet } from "react-router"
 
 export const GuestRoute = () => {
     const isAuthenticated = useAppSelector(selectIsAuthenticated)
-    return !isAuthenticated ? <Outlet /> : <Navigate to="/dashboard" replace />
+    return !isAuthenticated ? <Outlet /> : <Navigate to="/" replace />
 }
