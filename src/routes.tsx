@@ -8,6 +8,7 @@ import { GuestRoute } from "@/components/guest-route"
 import AppLayout from "@/layouts/app"
 import Topup from "@/pages/topup"
 import ServiceDetail from "./pages/service-detail"
+import Transaction from "./pages/transaction"
 
 const AppRoutes = () => {
     return (
@@ -17,7 +18,8 @@ const AppRoutes = () => {
                     <Route path="/dashboard" element={<Dashboard />} />
                     <Route path="/topup" element={<Topup />} />
                     <Route path="/services/:code" element={<ServiceDetail />} />
-                    {/* NOTE: protected routes go here */}
+                    <Route path="/transaction" element={<Transaction />} />
+
                 </Route>
             </Route>
 

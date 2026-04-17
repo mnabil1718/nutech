@@ -7,3 +7,14 @@ export type TransactionResponse = {
     total_amount: number
     created_on: string
 }
+
+export type TransactionHistoryPayload = {
+    offset: number;
+    limit: number;
+}
+
+export type TransactionHistoryResponse = {
+    offset: number;
+    limit: number;
+    records: TransactionResponse[]
+}

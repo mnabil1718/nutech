@@ -3,6 +3,7 @@ import authReducer from "./auth/auth.slice"
 import profileReducer from "./profile/profile.slice"
 import balanceReducer from "./balance/balance.slice"
 import servicesReducer from "./services/service.slice"
+import transactionReducer from "./transaction/transaction.slice"
 
 export const store = configureStore({
     reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
         profile: profileReducer,
         balance: balanceReducer,
         services: servicesReducer,
+        transaction: transactionReducer,
     },
 })
 

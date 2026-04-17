@@ -20,16 +20,14 @@ const Navbar = () => {
                         Top up
                     </NavLink>
 
-
                     <NavLink
-                        to={"/transaksi"}
+                        to={"/transaction"}
                         className={({ isActive }) =>
                             isActive ? "text-primary" : "text-foreground"
                         }
                     >
                         Transaction
                     </NavLink>
-
 
                     <NavLink
                         to={"/akun"}
