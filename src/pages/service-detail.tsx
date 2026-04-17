@@ -1,7 +1,6 @@
 import Balance from "@/components/balance"
 import Greeting from "@/components/greeting"
 import PaymentForm from "@/components/payment-form"
-import { selectServiceByCode, selectServices, selectServicesLoading } from "@/store/services/service.selector"
 import { useParams } from "react-router"
 
 const ServiceDetail = () => {

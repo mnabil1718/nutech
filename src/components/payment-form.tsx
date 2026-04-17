@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Banknote, Check, Wallet, X } from "lucide-react"
 import { useNavigate } from "react-router"
 import { useAppDispatch, useAppSelector } from "@/store/hooks"
-import { fetchBalanceThunk, topupThunk, transactionThunk } from "@/store/balance/balance.slice"
+import { fetchBalanceThunk, transactionThunk } from "@/store/balance/balance.slice"
 import { selectBalanceLoading } from "@/store/balance/balance.selector"
 import { fetchServicesThunk } from "@/store/services/service.slice"
 import {
