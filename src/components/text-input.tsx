@@ -1,5 +1,5 @@
 import { Controller, type Control, type FieldValues, type Path } from 'react-hook-form'
-import { Field, FieldError } from '@/components/ui/field'
+import { Field, FieldError, FieldLabel } from '@/components/ui/field'
 import type { ReactNode } from 'react'
 import { InputGroup, InputGroupAddon, InputGroupInput } from './ui/input-group'
 
@@ -11,6 +11,7 @@ interface TextInputProps<T extends FieldValues> {
     type?: string
     id?: string
     readOnly?: boolean,
+    label?: string,
 }
 
 const TextInput = <T extends FieldValues>({
@@ -20,6 +21,7 @@ const TextInput = <T extends FieldValues>({
     readOnly = false,
     icon,
     type = 'text',
+    label,
     id,
 }: TextInputProps<T>) => {
     return (
@@ -28,6 +30,12 @@ const TextInput = <T extends FieldValues>({
             control={control}
             render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
+
+                    {
+                        label && (
+                            <FieldLabel>{label}</FieldLabel>
+                        )
+                    }
                     <InputGroup className="p-2 h-auto">
                         <InputGroupInput
                             {...field}

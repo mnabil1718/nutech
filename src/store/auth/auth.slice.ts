@@ -5,6 +5,8 @@ import type { LoginPayload } from "@/types/login.type"
 import axios from "axios"
 import { clearProfile } from "../profile/profile.slice"
 import { clearBalance } from "../balance/balance.slice"
+import { clearServices } from "../services/service.slice"
+import { resetTransactions } from "../transaction/transaction.slice"
 
 
 export const loginThunk = createAsyncThunk(
@@ -31,6 +33,8 @@ export const logoutThunk = createAsyncThunk(
         localStorage.removeItem("token")
         dispatch(clearProfile())
         dispatch(clearBalance())
+        dispatch(clearServices())
+        dispatch(resetTransactions())
     })
 
 

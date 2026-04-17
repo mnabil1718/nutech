@@ -1,7 +1,8 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
-import { getProfile } from "@/services/profile.service"
+import { createSlice, createAsyncThunk, type PayloadAction } from "@reduxjs/toolkit"
+import { getProfile, updateProfile, updateProfileImage } from "@/services/profile.service"
 import type { User } from "@/types/user.type"
 import axios from "axios"
+import type { UpdateProfilePayload } from "@/types/profile.type"
 
 type ProfileState = {
     data: User | null
@@ -32,6 +33,42 @@ export const fetchProfileThunk = createAsyncThunk(
     }
 )
 
+export const updateProfileThunk = createAsyncThunk(
+    "profile/update",
+    async (payload: UpdateProfilePayload, { rejectWithValue }) => {
+        try {
+            const res = await updateProfile(payload)
+            return res.data!
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                return rejectWithValue(error.response?.data?.message ?? "Gagal memperbarui profil")
+            }
+            return rejectWithValue("Gagal memperbarui profil")
+        }
+    }
+)
+
+export const updateProfileImageThunk = createAsyncThunk(
+    "profile/updateImage",
+    async (file: File, { rejectWithValue }) => {
+        try {
+            const res = await updateProfileImage(file)
+            return res.data!
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                return rejectWithValue(error.response?.data?.message ?? "Gagal memperbarui foto")
+            }
+            return rejectWithValue("Gagal memperbarui foto")
+        }
+    }
+)
+
+const upsertProfile = (state: ProfileState, action: PayloadAction<User>) => {
+    state.isLoading = false
+    state.data = action.payload
+}
+
+
 const profileSlice = createSlice({
     name: "profile",
     initialState,
@@ -53,6 +90,24 @@ const profileSlice = createSlice({
             })
             .addCase(fetchProfileThunk.rejected, (state, action) => {
                 state.isLoading = false
+                state.error = action.payload as string
+            })
+            .addCase(updateProfileThunk.pending, (state) => {
+                state.isLoading = true;
+                state.error = null
+            })
+            .addCase(updateProfileThunk.fulfilled, upsertProfile)
+            .addCase(updateProfileThunk.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload as string
+            })
+            .addCase(updateProfileImageThunk.pending, (state) => {
+                state.isLoading = true;
+                state.error = null
+            })
+            .addCase(updateProfileImageThunk.fulfilled, upsertProfile)
+            .addCase(updateProfileImageThunk.rejected, (state, action) => {
+                state.isLoading = false;
                 state.error = action.payload as string
             })
     },

@@ -19,10 +19,10 @@ const Greeting = () => {
         if (isLoading) return null
 
         if (!profile || profile.profile_image.includes("/null")) {
-            return <img src={ProfilePlaceholder} className="w-full h-full object-contain" />
+            return <img src={ProfilePlaceholder} className="w-full h-full object-cover" />
         }
 
-        return <img src={profile.profile_image} className="w-full h-full object-contain" />
+        return <img src={profile.profile_image} className="w-full h-full object-cover" />
     }
 
     return (

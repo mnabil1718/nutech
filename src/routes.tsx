@@ -9,6 +9,7 @@ import AppLayout from "@/layouts/app"
 import Topup from "@/pages/topup"
 import ServiceDetail from "./pages/service-detail"
 import Transaction from "./pages/transaction"
+import Account from "./pages/account"
 
 const AppRoutes = () => {
     return (
@@ -19,7 +20,7 @@ const AppRoutes = () => {
                     <Route path="/topup" element={<Topup />} />
                     <Route path="/services/:code" element={<ServiceDetail />} />
                     <Route path="/transaction" element={<Transaction />} />
-
+                    <Route path="/akun" element={<Account />} />
                 </Route>
             </Route>
 
