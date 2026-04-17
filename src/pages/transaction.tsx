@@ -13,7 +13,7 @@ const Transaction = () => {
                     <Balance />
                 </div>
             </section>
-            <section className="max-w-7xl mx-auto mt-5 p-5">
+            <section className="max-w-7xl mx-auto mt-5 p-5 pb-10">
                 <h2 className="font-semibold text-lg mb-7">
                     Semua Transaksi
                 </h2>

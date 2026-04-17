@@ -1,12 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import { getTransactionHistory } from "@/services/transaction.service"
-import type { TransactionResponse } from "@/types/transaction.type"
+import type { TransactionHistory } from "@/types/transaction.type"
 import axios from "axios"
 
 const LIMIT = 5
 
 type TransactionState = {
-    records: TransactionResponse[]
+    records: TransactionHistory[]
     offset: number
     hasMore: boolean
     isLoading: boolean
@@ -46,6 +46,7 @@ const transactionSlice = createSlice({
             state.records = []
             state.offset = 0
             state.hasMore = true
+            state.isLoading = false
             state.error = null
         },
     },
@@ -57,14 +58,14 @@ const transactionSlice = createSlice({
             })
             .addCase(fetchTransactionHistoryThunk.fulfilled, (state, action) => {
                 state.isLoading = false
-                const { records, limit } = action.payload
-
-                // accumulate — never replace
-                state.records = [...state.records, ...records]
+                const { records, limit, offset } = action.payload
+                if (offset == 0) {
+                    state.records = [...records]
+                } else {
+                    state.records = [...state.records, ...records]
+                }
                 state.offset = state.records.length
-
-                // if returned less than limit, no more pages exist
-                state.hasMore = records.length === limit
+                state.hasMore = records.length === Number(limit)
             })
             .addCase(fetchTransactionHistoryThunk.rejected, (state, action) => {
                 state.isLoading = false

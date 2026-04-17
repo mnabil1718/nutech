@@ -13,8 +13,12 @@ export type TransactionHistoryPayload = {
     limit: number;
 }
 
+export type TransactionHistory = Omit<TransactionResponse, "service_code" | "service_name"> & {
+    description: string;
+}
+
 export type TransactionHistoryResponse = {
     offset: number;
     limit: number;
-    records: TransactionResponse[]
+    records: TransactionHistory[]
 }

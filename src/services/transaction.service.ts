@@ -10,5 +10,6 @@ export async function createTransaction(payload: TransactionPayload): Promise<Ap
 
 export async function getTransactionHistory(params: TransactionHistoryPayload): Promise<ApiResponse<TransactionHistoryResponse>> {
     const response = await api.get<ApiResponse<TransactionHistoryResponse>>("/transaction/history", { params })
+
     return response.data
 } 
